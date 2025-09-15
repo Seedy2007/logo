@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The i lade - Animated Logo</title>
+    <title>The i lade - Realistic Crack Animation</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -55,7 +55,7 @@
             margin-right: 20px;
             opacity: 0;
             transform: translateX(-20px);
-            animation: textAppearLeft 0.8s forwards 2.2s;
+            animation: textAppearLeft 0.8s forwards 2.8s;
         }
         
         .letter-container {
@@ -69,7 +69,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+            z-index: 2;
         }
         
         .letter-i {
@@ -83,30 +84,30 @@
         
         .crack {
             position: absolute;
-            background: #d4af37;
-            z-index: 2;
+            z-index: 1;
+            stroke: #3a2f2b;
+            stroke-width: 2;
+            fill: none;
         }
         
         .crack-tl {
-            width: 25px;
-            height: 4px;
-            top: -2px;
-            left: -2px;
-            transform: rotate(45deg);
-            transform-origin: left center;
-            opacity: 0;
-            animation: crackTL 0.6s forwards 1.8s;
+            top: -5px;
+            left: -5px;
+            width: 50px;
+            height: 50px;
         }
         
         .crack-br {
-            width: 25px;
-            height: 4px;
-            bottom: -2px;
-            right: -2px;
-            transform: rotate(45deg);
-            transform-origin: right center;
-            opacity: 0;
-            animation: crackBR 0.6s forwards 1.8s;
+            bottom: -5px;
+            right: -5px;
+            width: 50px;
+            height: 50px;
+            transform: rotate(180deg);
+        }
+        
+        .crack-line {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
         }
         
         .text-lade {
@@ -117,7 +118,7 @@
             margin-left: 20px;
             opacity: 0;
             transform: translateX(20px);
-            animation: textAppearRight 0.8s forwards 2.4s;
+            animation: textAppearRight 0.8s forwards 3s;
         }
         
         /* Animations */
@@ -146,25 +147,12 @@
             }
         }
         
-        @keyframes crackTL {
+        @keyframes crackAnimation {
             0% {
-                opacity: 0;
-                width: 0;
+                stroke-dashoffset: 100;
             }
             100% {
-                opacity: 1;
-                width: 25px;
-            }
-        }
-        
-        @keyframes crackBR {
-            0% {
-                opacity: 0;
-                width: 0;
-            }
-            100% {
-                opacity: 1;
-                width: 25px;
+                stroke-dashoffset: 0;
             }
         }
         
@@ -224,6 +212,11 @@
             .letter-i {
                 font-size: 48px;
             }
+            
+            .crack-tl, .crack-br {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -232,9 +225,13 @@
         <div class="logo-container">
             <div class="text-the">The</div>
             <div class="letter-container">
-                <div class="crack crack-tl"></div>
-                <div class="crack crack-br"></div>
                 <div class="letter-i">i</div>
+                <svg class="crack crack-tl" viewBox="0 0 100 100">
+                    <path class="crack-line" d="M100,0 C80,15 65,40 50,50 C35,60 20,85 0,100" style="animation: crackAnimation 0.8s forwards 2s;"></path>
+                </svg>
+                <svg class="crack crack-br" viewBox="0 0 100 100">
+                    <path class="crack-line" d="M100,0 C80,15 65,40 50,50 C35,60 20,85 0,100" style="animation: crackAnimation 0.8s forwards 2s;"></path>
+                </svg>
             </div>
             <div class="text-lade">lade</div>
         </div>
@@ -245,7 +242,7 @@
     <script>
         function replayAnimation() {
             // Remove animation classes
-            const animatedElements = document.querySelectorAll('.logo-container, .text-the, .letter-i, .text-lade, .crack');
+            const animatedElements = document.querySelectorAll('.logo-container, .text-the, .letter-i, .text-lade, .crack-line');
             
             animatedElements.forEach(el => {
                 // Clone and replace to reset animations
