@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The i lade - Logo</title>
+    <title>The i lade - Animated Logo</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -20,6 +20,7 @@
             justify-content: center;
             align-items: center;
             color: #3a2f2b;
+            overflow: hidden;
         }
         
         .container {
@@ -40,6 +41,10 @@
             border: 2px solid #d4af37;
             margin: 0 auto;
             width: fit-content;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: boxAppear 1s forwards 0.5s;
         }
         
         .text-the {
@@ -48,6 +53,9 @@
             color: #3a2f2b;
             letter-spacing: 2px;
             margin-right: 20px;
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: textAppearLeft 0.8s forwards 2.2s;
         }
         
         .letter-container {
@@ -60,12 +68,45 @@
             border: 3px solid #d4af37;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
         }
         
         .letter-i {
             font-size: 60px;
             font-weight: 700;
             color: #3a2f2b;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: letterAppear 0.8s forwards 1.5s;
+        }
+        
+        .crack {
+            position: absolute;
+            background: #d4af37;
+            z-index: 2;
+        }
+        
+        .crack-tl {
+            width: 25px;
+            height: 4px;
+            top: -2px;
+            left: -2px;
+            transform: rotate(45deg);
+            transform-origin: left center;
+            opacity: 0;
+            animation: crackTL 0.6s forwards 1.8s;
+        }
+        
+        .crack-br {
+            width: 25px;
+            height: 4px;
+            bottom: -2px;
+            right: -2px;
+            transform: rotate(45deg);
+            transform-origin: right center;
+            opacity: 0;
+            animation: crackBR 0.6s forwards 1.8s;
         }
         
         .text-lade {
@@ -74,6 +115,96 @@
             color: #3a2f2b;
             letter-spacing: 2px;
             margin-left: 20px;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: textAppearRight 0.8s forwards 2.4s;
+        }
+        
+        /* Animations */
+        @keyframes boxAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes letterAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            70% {
+                transform: scale(1.1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes crackTL {
+            0% {
+                opacity: 0;
+                width: 0;
+            }
+            100% {
+                opacity: 1;
+                width: 25px;
+            }
+        }
+        
+        @keyframes crackBR {
+            0% {
+                opacity: 0;
+                width: 0;
+            }
+            100% {
+                opacity: 1;
+                width: 25px;
+            }
+        }
+        
+        @keyframes textAppearLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes textAppearRight {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .replay-btn {
+            margin-top: 40px;
+            padding: 12px 25px;
+            background: #3a2f2b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        
+        .replay-btn:hover {
+            background: #5a4a43;
         }
         
         @media (max-width: 600px) {
@@ -101,10 +232,30 @@
         <div class="logo-container">
             <div class="text-the">The</div>
             <div class="letter-container">
+                <div class="crack crack-tl"></div>
+                <div class="crack crack-br"></div>
                 <div class="letter-i">i</div>
             </div>
             <div class="text-lade">lade</div>
         </div>
+        
+        <button class="replay-btn" onclick="replayAnimation()">Replay Animation</button>
     </div>
+
+    <script>
+        function replayAnimation() {
+            // Remove animation classes
+            const animatedElements = document.querySelectorAll('.logo-container, .text-the, .letter-i, .text-lade, .crack');
+            
+            animatedElements.forEach(el => {
+                // Clone and replace to reset animations
+                const clone = el.cloneNode(true);
+                el.parentNode.replaceChild(clone, el);
+            });
+            
+            // Force reflow to restart animations
+            void document.body.offsetHeight;
+        }
+    </script>
 </body>
 </html>
