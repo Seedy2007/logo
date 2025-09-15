@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The i lade - Elegant Logo</title>
+    <title>The i lade - Enhanced Logo</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
     <style>
         * {
@@ -32,8 +32,8 @@
         
         .logo-container {
             position: relative;
-            width: 400px;
-            height: 400px;
+            width: 500px;
+            height: 500px;
             margin: 0 auto;
         }
         
@@ -59,30 +59,28 @@
         
         .l-part {
             position: absolute;
-            width: 180px;
-            height: 180px;
-            border: 12px solid transparent;
+            width: 200px;
+            height: 200px;
+            border: 12px solid #3a2f2b;
             border-radius: 8px;
+            opacity: 0;
         }
         
-        .l-left {
-            left: 80px;
-            top: 80px;
-            border-right: none;
+        .l-top {
+            top: 100px;
+            left: 140px;
             border-bottom: none;
-            transform: rotate(0deg);
-            opacity: 0;
-            animation: drawBoxLeft 1.2s forwards, crackLeft 0.8s forwards 1.8s;
+            border-right: none;
+            animation: drawBoxTop 1.2s forwards;
         }
         
-        .l-right {
-            right: 80px;
-            bottom: 80px;
-            border-left: none;
+        .l-bottom {
+            bottom: 100px;
+            right: 140px;
             border-top: none;
-            transform: rotate(0deg);
-            opacity: 0;
-            animation: drawBoxRight 1.2s forwards, crackRight 0.8s forwards 1.8s;
+            border-left: none;
+            transform: rotate(180deg);
+            animation: drawBoxBottom 1.2s forwards;
         }
         
         .text-the, .text-lade {
@@ -96,91 +94,92 @@
         }
         
         .text-the {
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: fadeInUp 0.8s forwards 2.2s;
+            top: 50%;
+            right: 60px;
+            transform: translateY(-50%);
+            animation: fadeInRight 0.8s forwards 2.2s;
         }
         
         .text-lade {
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: fadeInDown 0.8s forwards 2.4s;
+            top: 50%;
+            left: 60px;
+            transform: translateY(-50%);
+            animation: fadeInLeft 0.8s forwards 2.4s;
         }
         
-        .chinese-roof {
+        .crack-top {
             position: absolute;
-            width: 220px;
-            height: 30px;
-            background: #d4af37;
-            z-index: 5;
+            width: 200px;
+            height: 40px;
+            top: 100px;
+            left: 140px;
+            border-top: 12px solid #3a2f2b;
+            border-left: 12px solid #3a2f2b;
+            border-right: 12px solid #3a2f2b;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
             opacity: 0;
-            border-radius: 50% 50% 0 0;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            z-index: 5;
+            animation: crackTop 0.8s forwards 1.8s;
         }
         
-        .roof-left {
-            top: 65px;
-            left: 70px;
-            transform: rotate(-45deg);
-            animation: roofAppear 0.8s forwards 2s;
+        .crack-bottom {
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            bottom: 100px;
+            right: 140px;
+            border-bottom: 12px solid #3a2f2b;
+            border-left: 12px solid #3a2f2b;
+            border-right: 12px solid #3a2f2b;
+            border-bottom-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            opacity: 0;
+            z-index: 5;
+            animation: crackBottom 0.8s forwards 1.8s;
         }
         
-        .roof-right {
-            bottom: 65px;
-            right: 70px;
-            transform: rotate(135deg);
-            animation: roofAppear 0.8s forwards 2s;
-        }
-        
-        @keyframes drawBoxLeft {
+        @keyframes drawBoxTop {
             0% {
                 opacity: 1;
                 clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-                border-color: #3a2f2b;
             }
             100% {
                 opacity: 1;
                 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-                border-color: #3a2f2b;
             }
         }
         
-        @keyframes drawBoxRight {
+        @keyframes drawBoxBottom {
             0% {
                 opacity: 1;
                 clip-path: polygon(100% 100%, 100% 100%, 100% 0, 100% 0);
-                border-color: #3a2f2b;
             }
             100% {
                 opacity: 1;
                 clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-                border-color: #3a2f2b;
             }
         }
         
-        @keyframes crackLeft {
+        @keyframes crackTop {
             0% {
-                transform: rotate(0deg);
-                border-color: #3a2f2b;
+                opacity: 0;
+                transform: translateY(0);
             }
             100% {
-                transform: rotate(-45deg) translate(-20px, -20px);
-                border-color: #3a2f2b;
-                border-top-left-radius: 50%;
+                opacity: 1;
+                transform: translateY(-40px);
             }
         }
         
-        @keyframes crackRight {
+        @keyframes crackBottom {
             0% {
-                transform: rotate(0deg);
-                border-color: #3a2f2b;
+                opacity: 0;
+                transform: translateY(0);
             }
             100% {
-                transform: rotate(135deg) translate(-20px, -20px);
-                border-color: #3a2f2b;
-                border-top-left-radius: 50%;
+                opacity: 1;
+                transform: translateY(40px);
             }
         }
         
@@ -189,19 +188,14 @@
             100% { opacity: 1; transform: scale(1); }
         }
         
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translate(-50%, 20px); }
-            100% { opacity: 1; transform: translate(-50%, 0); }
+        @keyframes fadeInRight {
+            0% { opacity: 0; transform: translate(20px, -50%); }
+            100% { opacity: 1; transform: translate(0, -50%); }
         }
         
-        @keyframes fadeInDown {
-            0% { opacity: 0; transform: translate(-50%, -20px); }
-            100% { opacity: 1; transform: translate(-50%, 0); }
-        }
-        
-        @keyframes roofAppear {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        @keyframes fadeInLeft {
+            0% { opacity: 0; transform: translate(-20px, -50%); }
+            100% { opacity: 1; transform: translate(0, -50%); }
         }
         
         .instructions {
@@ -256,22 +250,40 @@
                 height: 120px;
             }
             
-            .l-left {
-                left: 80px;
+            .l-top {
                 top: 80px;
+                left: 80px;
             }
             
-            .l-right {
-                right: 80px;
+            .l-bottom {
                 bottom: 80px;
+                right: 80px;
+            }
+            
+            .crack-top, .crack-bottom {
+                width: 120px;
+            }
+            
+            .crack-top {
+                top: 80px;
+                left: 80px;
+            }
+            
+            .crack-bottom {
+                bottom: 80px;
+                right: 80px;
             }
             
             .text-the, .text-lade {
                 font-size: 24px;
             }
             
-            .chinese-roof {
-                width: 150px;
+            .text-the {
+                right: 40px;
+            }
+            
+            .text-lade {
+                left: 40px;
             }
         }
     </style>
@@ -280,10 +292,10 @@
     <div class="container">
         <div class="logo-container">
             <div class="logo">
-                <div class="l-part l-left"></div>
-                <div class="l-part l-right"></div>
-                <div class="chinese-roof roof-left"></div>
-                <div class="chinese-roof roof-right"></div>
+                <div class="l-part l-top"></div>
+                <div class="l-part l-bottom"></div>
+                <div class="crack-top"></div>
+                <div class="crack-bottom"></div>
                 <div class="letter-i">i</div>
                 <div class="text-the">The</div>
                 <div class="text-lade">lade</div>
@@ -291,12 +303,12 @@
         </div>
         
         <div class="instructions">
-            <h2>How to Use This Logo</h2>
-            <p>This elegant logo animation can be integrated into your website header. The animation sequence is:</p>
-            <p>1. The two "L" shapes form a box</p>
-            <p>2. The "i" appears in the center</p>
-            <p>3. The "L" shapes crack like an egg with Chinese roof styling</p>
-            <p>4. "The" and "lade" text appear with elegant animations</p>
+            <h2>Enhanced Logo Animation</h2>
+            <p>This updated design features:</p>
+            <p>1. Two L's forming a complete box around the "i"</p>
+            <p>2. Chinese roof-style cracks appearing at the top and bottom</p>
+            <p>3. "The" text on the right and "lade" on the left</p>
+            <p>4. Elegant animation sequence with precise timing</p>
         </div>
         
         <button class="restart-button" onclick="restartAnimation()">Replay Animation</button>
@@ -305,7 +317,7 @@
     <script>
         function restartAnimation() {
             // Remove animation classes
-            const elements = document.querySelectorAll('.l-left, .l-right, .letter-i, .text-the, .text-lade, .roof-left, .roof-right');
+            const elements = document.querySelectorAll('.l-top, .l-bottom, .letter-i, .text-the, .text-lade, .crack-top, .crack-bottom');
             elements.forEach(el => {
                 const clone = el.cloneNode(true);
                 el.parentNode.replaceChild(clone, el);
@@ -314,6 +326,9 @@
             // Force reflow
             void document.body.offsetHeight;
         }
+        
+        // Auto-restart animation every 5 seconds for demonstration
+        setInterval(restartAnimation, 5000);
     </script>
 </body>
 </html>
