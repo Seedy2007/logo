@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The i lade - Separating Crack Effect</title>
+    <title>The i lade - Proper Crack Animation</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -34,21 +34,15 @@
             position: relative;
             display: inline-block;
             margin: 0 auto;
+            height: 180px;
         }
         
         .logo-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            background: white;
-            padding: 25px 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 2px solid #d4af37;
             position: relative;
-            opacity: 0;
-            transform: scale(0.8);
-            animation: boxAppear 1s forwards 0.5s;
+            height: 100%;
         }
         
         .text-the {
@@ -59,22 +53,29 @@
             margin-right: 20px;
             opacity: 0;
             transform: translateX(-20px);
-            animation: textAppearLeft 0.8s forwards 2.8s;
+            animation: textAppearLeft 0.8s forwards 2s;
         }
         
-        .letter-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 80px;
-            height: 100px;
-            background: #f8f4f0;
+        .box-container {
+            position: relative;
+            width: 100px;
+            height: 150px;
+            z-index: 2;
+        }
+        
+        .letter-box {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
             border: 3px solid #d4af37;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            animation: boxAppear 1s forwards 0.5s;
         }
         
         .letter-i {
@@ -82,39 +83,40 @@
             font-weight: 700;
             color: #3a2f2b;
             opacity: 0;
-            transform: scale(0.5);
-            animation: letterAppear 0.8s forwards 1.5s;
+            animation: letterAppear 0.8s forwards 1.2s;
         }
         
         .crack-piece {
             position: absolute;
-            background: #f8f4f0;
+            background: white;
             border: 3px solid #d4af37;
             z-index: 1;
         }
         
         .piece-tl {
-            width: 45px;
-            height: 45px;
-            top: -3px;
-            left: -3px;
+            width: 52px;
+            height: 77px;
+            top: 0;
+            left: 0;
             border-bottom: none;
             border-right: none;
             border-top-left-radius: 8px;
             opacity: 0;
-            animation: crackPieceTL 0.8s forwards 2s;
+            transform: translate(0, 0);
+            animation: crackPieceTL 0.8s forwards 1.8s;
         }
         
         .piece-br {
-            width: 45px;
-            height: 45px;
-            bottom: -3px;
-            right: -3px;
+            width: 52px;
+            height: 77px;
+            bottom: 0;
+            right: 0;
             border-top: none;
             border-left: none;
             border-bottom-right-radius: 8px;
             opacity: 0;
-            animation: crackPieceBR 0.8s forwards 2s;
+            transform: translate(0, 0);
+            animation: crackPieceBR 0.8s forwards 1.8s;
         }
         
         .text-lade {
@@ -125,7 +127,7 @@
             margin-left: 20px;
             opacity: 0;
             transform: translateX(20px);
-            animation: textAppearRight 0.8s forwards 3s;
+            animation: textAppearRight 0.8s forwards 2.2s;
         }
         
         /* Animations */
@@ -216,17 +218,13 @@
         }
         
         @media (max-width: 600px) {
-            .logo-container {
-                padding: 20px;
-            }
-            
             .text-the, .text-lade {
                 font-size: 28px;
             }
             
-            .letter-container {
-                width: 60px;
-                height: 80px;
+            .box-container {
+                width: 80px;
+                height: 120px;
             }
             
             .letter-i {
@@ -234,8 +232,8 @@
             }
             
             .piece-tl, .piece-br {
-                width: 35px;
-                height: 35px;
+                width: 42px;
+                height: 62px;
             }
         }
     </style>
@@ -245,11 +243,15 @@
         <div class="logo-wrapper">
             <div class="logo-container">
                 <div class="text-the">The</div>
-                <div class="letter-container">
-                    <div class="letter-i">i</div>
+                
+                <div class="box-container">
+                    <div class="letter-box">
+                        <div class="letter-i">i</div>
+                    </div>
                     <div class="crack-piece piece-tl"></div>
                     <div class="crack-piece piece-br"></div>
                 </div>
+                
                 <div class="text-lade">lade</div>
             </div>
         </div>
@@ -260,7 +262,7 @@
     <script>
         function replayAnimation() {
             // Remove animation classes
-            const animatedElements = document.querySelectorAll('.logo-container, .text-the, .letter-i, .text-lade, .piece-tl, .piece-br');
+            const animatedElements = document.querySelectorAll('.letter-box, .text-the, .letter-i, .text-lade, .piece-tl, .piece-br');
             
             animatedElements.forEach(el => {
                 // Clone and replace to reset animations
@@ -271,6 +273,9 @@
             // Force reflow to restart animations
             void document.body.offsetHeight;
         }
+        
+        // Auto replay for demonstration
+        setTimeout(replayAnimation, 4000);
     </script>
 </body>
 </html>
