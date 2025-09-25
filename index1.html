@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The「i」lade Logo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a2a3a 0%, #0d1b2a 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .text-part {
+            font-size: 3.5rem;
+            font-weight: 300;
+            color: #e0e0e0;
+            opacity: 0;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .the-text {
+            margin-right: 10px;
+            transform: translateX(-30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .lade-text {
+            margin-left: 10px;
+            transform: translateX(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .symbol-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .rectangle {
+            position: absolute;
+            width: 120px;
+            height: 140px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.6s ease-out;
+            box-shadow: 0 0 20px rgba(100, 150, 255, 0.2);
+        }
+        
+        .i-dot {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #64a0ff;
+            border-radius: 50%;
+            top: 40px;
+            opacity: 0;
+            transform: scale(0);
+            box-shadow: 0 0 15px rgba(100, 160, 255, 0.7);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .i-stem {
+            position: absolute;
+            width: 8px;
+            height: 70px;
+            background: #64a0ff;
+            bottom: 30px;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: bottom;
+            box-shadow: 0 0 10px rgba(100, 160, 255, 0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .bracket {
+            position: absolute;
+            font-size: 120px;
+            color: #64a0ff;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 0 20px rgba(100, 160, 255, 0.7);
+            line-height: 1;
+        }
+        
+        .left-bracket {
+            left: 0;
+        }
+        
+        .right-bracket {
+            right: 0;
+        }
+        
+        .glow {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(100, 160, 255, 0.3) 0%, transparent 70%);
+            filter: blur(15px);
+            opacity: 0;
+            z-index: -1;
+            transition: all 0.8s ease;
+        }
+        
+        .restart-btn {
+            position: absolute;
+            bottom: 30px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .restart-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .instruction {
+            position: absolute;
+            top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="instruction">Watch the elegant logo animation unfold</div>
+    
+    <div class="logo-container">
+        <div class="text-part the-text">The</div>
+        
+        <div class="symbol-container">
+            <div class="rectangle"></div>
+            <div class="i-dot"></div>
+            <div class="i-stem"></div>
+            
+            <!-- Actual bracket characters -->
+            <div class="bracket left-bracket">「</div>
+            <div class="bracket right-bracket">」</div>
+            
+            <div class="glow"></div>
+        </div>
+        
+        <div class="text-part lade-text">lade</div>
+    </div>
+    
+    <button class="restart-btn">Replay Animation</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rectangle = document.querySelector('.rectangle');
+            const iDot = document.querySelector('.i-dot');
+            const iStem = document.querySelector('.i-stem');
+            const leftBracket = document.querySelector('.left-bracket');
+            const rightBracket = document.querySelector('.right-bracket');
+            const theText = document.querySelector('.the-text');
+            const ladeText = document.querySelector('.lade-text');
+            const glow = document.querySelector('.glow');
+            const restartBtn = document.querySelector('.restart-btn');
+            
+            function animateLogo() {
+                // Reset all elements
+                resetAnimation();
+                
+                // Sequence the animation
+                setTimeout(() => {
+                    // Show rectangle
+                    rectangle.style.opacity = '1';
+                    rectangle.style.transform = 'scale(1)';
+                    
+                    // Show i after rectangle appears
+                    setTimeout(() => {
+                        iDot.style.opacity = '1';
+                        iDot.style.transform = 'scale(1)';
+                        
+                        iStem.style.opacity = '1';
+                        iStem.style.transform = 'scaleY(1)';
+                        
+                        // Add glow effect
+                        glow.style.opacity = '0.6';
+                        
+                        // Rectangle transforms into brackets
+                        setTimeout(() => {
+                            // Hide rectangle with breaking effect
+                            rectangle.style.opacity = '0';
+                            rectangle.style.transform = 'scale(1.2) rotate(5deg)';
+                            
+                            // Show brackets with proper timing
+                            setTimeout(() => {
+                                leftBracket.style.opacity = '1';
+                                leftBracket.style.transform = 'scale(1) translateX(0)';
+                                
+                                setTimeout(() => {
+                                    rightBracket.style.opacity = '1';
+                                    rightBracket.style.transform = 'scale(1) translateX(0)';
+                                    
+                                    // Text appears
+                                    setTimeout(() => {
+                                        theText.style.opacity = '1';
+                                        theText.style.transform = 'translateX(0)';
+                                        
+                                        ladeText.style.opacity = '1';
+                                        ladeText.style.transform = 'translateX(0)';
+                                        
+                                        // Final glow effect
+                                        glow.style.opacity = '0.3';
+                                        glow.style.transform = 'scale(1.2)';
+                                    }, 300);
+                                }, 200);
+                            }, 200);
+                        }, 800);
+                    }, 500);
+                }, 300);
+            }
+            
+            function resetAnimation() {
+                rectangle.style.opacity = '0';
+                rectangle.style.transform = 'scale(0.8)';
+                
+                iDot.style.opacity = '0';
+                iDot.style.transform = 'scale(0)';
+                
+                iStem.style.opacity = '0';
+                iStem.style.transform = 'scaleY(0)';
+                
+                leftBracket.style.opacity = '0';
+                leftBracket.style.transform = 'scale(0.5) translateX(-20px)';
+                
+                rightBracket.style.opacity = '0';
+                rightBracket.style.transform = 'scale(0.5) translateX(20px)';
+                
+                theText.style.opacity = '0';
+                theText.style.transform = 'translateX(-30px)';
+                
+                ladeText.style.opacity = '0';
+                ladeText.style.transform = 'translateX(30px)';
+                
+                glow.style.opacity = '0';
+                glow.style.transform = 'scale(1)';
+            }
+            
+            // Start animation on page load
+            animateLogo();
+            
+            // Restart animation on button click
+            restartBtn.addEventListener('click', animateLogo);
+        });
+    </script>
+</body>
+</html>
