@@ -24,7 +24,6 @@
         .logo-container {
             display: flex;
             align-items: center;
-            perspective: 1000px;
         }
         
         .text-part {
@@ -32,17 +31,19 @@
             font-weight: 300;
             color: #e0e0e0;
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
         .the-text {
             margin-right: 15px;
+            transform: translateX(-20px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .lade-text {
             margin-left: 15px;
+            transform: translateX(20px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .symbol-container {
@@ -92,44 +93,68 @@
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .bracket-left, .bracket-right {
+        .bracket {
             position: absolute;
+            width: 100px;
             height: 140px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .bracket::before, .bracket::after {
+            content: '';
+            position: absolute;
+            background: #64a0ff;
+            box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
+        }
+        
+        .bracket::before {
+            /* Left and right brackets */
             width: 20px;
+            height: 140px;
+            left: 0;
             border: 2px solid #64a0ff;
             border-right: none;
+        }
+        
+        .bracket::after {
+            /* Top and bottom brackets */
+            width: 100px;
+            height: 20px;
+            top: 0;
+            border: 2px solid #64a0ff;
+            border-bottom: none;
+        }
+        
+        .bracket-bottom {
+            position: absolute;
+            width: 100px;
+            height: 20px;
+            bottom: 0;
+            background: transparent;
+            border: 2px solid #64a0ff;
+            border-top: none;
             opacity: 0;
-            transform: scaleX(0);
-            transform-origin: left;
+            transform: scaleY(0);
+            transform-origin: bottom;
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .bracket-right {
-            border-right: 2px solid #64a0ff;
-            border-left: none;
-            transform-origin: right;
-            right: 0;
-        }
-        
-        .bracket-top, .bracket-bottom {
             position: absolute;
-            width: 100px;
-            height: 20px;
+            width: 20px;
+            height: 140px;
+            right: 0;
+            background: transparent;
             border: 2px solid #64a0ff;
-            border-bottom: none;
+            border-left: none;
             opacity: 0;
-            transform: scaleY(0);
-            transform-origin: top;
+            transform: scaleX(0);
+            transform-origin: right;
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .bracket-bottom {
-            border-bottom: 2px solid #64a0ff;
-            border-top: none;
-            transform-origin: bottom;
-            bottom: 0;
         }
         
         .crack {
@@ -207,9 +232,8 @@
             <div class="rectangle"></div>
             <div class="i-dot"></div>
             <div class="i-stem"></div>
-            <div class="bracket-left"></div>
+            <div class="bracket"></div>
             <div class="bracket-right"></div>
-            <div class="bracket-top"></div>
             <div class="bracket-bottom"></div>
             <div class="crack crack-1"></div>
             <div class="crack crack-2"></div>
@@ -226,9 +250,8 @@
             const rectangle = document.querySelector('.rectangle');
             const iDot = document.querySelector('.i-dot');
             const iStem = document.querySelector('.i-stem');
-            const bracketLeft = document.querySelector('.bracket-left');
+            const bracket = document.querySelector('.bracket');
             const bracketRight = document.querySelector('.bracket-right');
-            const bracketTop = document.querySelector('.bracket-top');
             const bracketBottom = document.querySelector('.bracket-bottom');
             const crack1 = document.querySelector('.crack-1');
             const crack2 = document.querySelector('.crack-2');
@@ -269,33 +292,34 @@
                                 
                                 // Rectangle breaks and brackets form
                                 setTimeout(() => {
+                                    // Hide rectangle with breaking effect
                                     rectangle.style.opacity = '0';
                                     rectangle.style.transform = 'scale(1.1)';
                                     
-                                    bracketLeft.style.opacity = '1';
-                                    bracketLeft.style.transform = 'scaleX(1)';
-                                    
-                                    bracketRight.style.opacity = '1';
-                                    bracketRight.style.transform = 'scaleX(1)';
-                                    
-                                    bracketTop.style.opacity = '1';
-                                    bracketTop.style.transform = 'scaleY(1)';
-                                    
-                                    bracketBottom.style.opacity = '1';
-                                    bracketBottom.style.transform = 'scaleY(1)';
-                                    
-                                    // Text appears
+                                    // Show brackets with smooth transition
                                     setTimeout(() => {
-                                        theText.style.opacity = '1';
-                                        theText.style.transform = 'translateY(0)';
+                                        bracket.style.opacity = '1';
+                                        bracket.style.transform = 'scale(1)';
                                         
-                                        ladeText.style.opacity = '1';
-                                        ladeText.style.transform = 'translateY(0)';
+                                        bracketRight.style.opacity = '1';
+                                        bracketRight.style.transform = 'scaleX(1)';
                                         
-                                        // Final glow effect
-                                        glow.style.opacity = '0.3';
-                                        glow.style.transform = 'scale(1.2)';
-                                    }, 400);
+                                        bracketBottom.style.opacity = '1';
+                                        bracketBottom.style.transform = 'scaleY(1)';
+                                        
+                                        // Text appears
+                                        setTimeout(() => {
+                                            theText.style.opacity = '1';
+                                            theText.style.transform = 'translateX(0)';
+                                            
+                                            ladeText.style.opacity = '1';
+                                            ladeText.style.transform = 'translateX(0)';
+                                            
+                                            // Final glow effect
+                                            glow.style.opacity = '0.3';
+                                            glow.style.transform = 'scale(1.2)';
+                                        }, 400);
+                                    }, 150);
                                 }, 300);
                             }, 200);
                         }, 600);
@@ -313,14 +337,11 @@
                 iStem.style.opacity = '0';
                 iStem.style.transform = 'scaleY(0)';
                 
-                bracketLeft.style.opacity = '0';
-                bracketLeft.style.transform = 'scaleX(0)';
+                bracket.style.opacity = '0';
+                bracket.style.transform = 'scale(0.9)';
                 
                 bracketRight.style.opacity = '0';
                 bracketRight.style.transform = 'scaleX(0)';
-                
-                bracketTop.style.opacity = '0';
-                bracketTop.style.transform = 'scaleY(0)';
                 
                 bracketBottom.style.opacity = '0';
                 bracketBottom.style.transform = 'scaleY(0)';
@@ -332,10 +353,10 @@
                 crack2.style.transform = 'scaleX(0) rotate(15deg)';
                 
                 theText.style.opacity = '0';
-                theText.style.transform = 'translateY(20px)';
+                theText.style.transform = 'translateX(-20px)';
                 
                 ladeText.style.opacity = '0';
-                ladeText.style.transform = 'translateY(20px)';
+                ladeText.style.transform = 'translateX(20px)';
                 
                 glow.style.opacity = '0';
                 glow.style.transform = 'scale(1)';
