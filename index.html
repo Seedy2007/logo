@@ -36,19 +36,19 @@
         
         .the-text {
             margin-right: 15px;
-            transform: translateX(-20px);
+            transform: translateX(-30px);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .lade-text {
             margin-left: 15px;
-            transform: translateX(20px);
+            transform: translateX(30px);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .symbol-container {
             position: relative;
-            width: 120px;
+            width: 140px;
             height: 160px;
             display: flex;
             justify-content: center;
@@ -59,8 +59,8 @@
             position: absolute;
             width: 100px;
             height: 140px;
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            border-radius: 5px;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            border-radius: 4px;
             opacity: 0;
             transform: scale(0.8);
             transition: all 0.6s ease-out;
@@ -93,92 +93,53 @@
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .bracket {
+        .bracket-container {
             position: absolute;
-            width: 100px;
+            width: 120px;
             height: 140px;
             opacity: 0;
             transform: scale(0.9);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .bracket::before, .bracket::after {
-            content: '';
+        .bracket-left, .bracket-right {
             position: absolute;
-            background: #64a0ff;
-            box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
-        }
-        
-        .bracket::before {
-            /* Left and right brackets */
-            width: 20px;
             height: 140px;
-            left: 0;
+            width: 20px;
             border: 2px solid #64a0ff;
             border-right: none;
-        }
-        
-        .bracket::after {
-            /* Top and bottom brackets */
-            width: 100px;
-            height: 20px;
-            top: 0;
-            border: 2px solid #64a0ff;
-            border-bottom: none;
-        }
-        
-        .bracket-bottom {
-            position: absolute;
-            width: 100px;
-            height: 20px;
-            bottom: 0;
-            background: transparent;
-            border: 2px solid #64a0ff;
-            border-top: none;
             opacity: 0;
-            transform: scaleY(0);
-            transform-origin: bottom;
+            transform: scaleX(0);
+            transform-origin: left;
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .bracket-right {
-            position: absolute;
-            width: 20px;
-            height: 140px;
-            right: 0;
-            background: transparent;
-            border: 2px solid #64a0ff;
+            border-right: 2px solid #64a0ff;
             border-left: none;
-            opacity: 0;
-            transform: scaleX(0);
             transform-origin: right;
+            right: 0;
+        }
+        
+        .bracket-top, .bracket-bottom {
+            position: absolute;
+            width: 120px;
+            height: 20px;
+            border: 2px solid #64a0ff;
+            border-bottom: none;
+            opacity: 0;
+            transform: scaleY(0);
+            transform-origin: top;
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        .crack {
-            position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ff4d4d, transparent);
-            opacity: 0;
-            transform: scaleX(0);
-            transform-origin: center;
-            box-shadow: 0 0 10px rgba(255, 77, 77, 0.7);
-            transition: all 0.3s ease-out;
-        }
-        
-        .crack-1 {
-            width: 60px;
-            top: 50px;
-            left: 20px;
-        }
-        
-        .crack-2 {
-            width: 40px;
-            top: 90px;
-            left: 30px;
-            transform: rotate(15deg) scaleX(0);
+        .bracket-bottom {
+            border-bottom: 2px solid #64a0ff;
+            border-top: none;
+            transform-origin: bottom;
+            bottom: 0;
         }
         
         .glow {
@@ -232,11 +193,14 @@
             <div class="rectangle"></div>
             <div class="i-dot"></div>
             <div class="i-stem"></div>
-            <div class="bracket"></div>
-            <div class="bracket-right"></div>
-            <div class="bracket-bottom"></div>
-            <div class="crack crack-1"></div>
-            <div class="crack crack-2"></div>
+            
+            <div class="bracket-container">
+                <div class="bracket-left"></div>
+                <div class="bracket-right"></div>
+                <div class="bracket-top"></div>
+                <div class="bracket-bottom"></div>
+            </div>
+            
             <div class="glow"></div>
         </div>
         
@@ -250,11 +214,11 @@
             const rectangle = document.querySelector('.rectangle');
             const iDot = document.querySelector('.i-dot');
             const iStem = document.querySelector('.i-stem');
-            const bracket = document.querySelector('.bracket');
+            const bracketContainer = document.querySelector('.bracket-container');
+            const bracketLeft = document.querySelector('.bracket-left');
             const bracketRight = document.querySelector('.bracket-right');
+            const bracketTop = document.querySelector('.bracket-top');
             const bracketBottom = document.querySelector('.bracket-bottom');
-            const crack1 = document.querySelector('.crack-1');
-            const crack2 = document.querySelector('.crack-2');
             const theText = document.querySelector('.the-text');
             const ladeText = document.querySelector('.lade-text');
             const glow = document.querySelector('.glow');
@@ -281,48 +245,52 @@
                         // Add glow effect
                         glow.style.opacity = '0.6';
                         
-                        // Crack animation after i appears
+                        // Rectangle transforms into brackets
                         setTimeout(() => {
-                            crack1.style.opacity = '1';
-                            crack1.style.transform = 'scaleX(1)';
+                            // Hide rectangle
+                            rectangle.style.opacity = '0';
+                            rectangle.style.transform = 'scale(1.1)';
                             
+                            // Show brackets with proper timing
                             setTimeout(() => {
-                                crack2.style.opacity = '1';
-                                crack2.style.transform = 'scaleX(1) rotate(15deg)';
+                                bracketContainer.style.opacity = '1';
+                                bracketContainer.style.transform = 'scale(1)';
                                 
-                                // Rectangle breaks and brackets form
+                                // Animate brackets appearing one by one
                                 setTimeout(() => {
-                                    // Hide rectangle with breaking effect
-                                    rectangle.style.opacity = '0';
-                                    rectangle.style.transform = 'scale(1.1)';
+                                    bracketLeft.style.opacity = '1';
+                                    bracketLeft.style.transform = 'scaleX(1)';
                                     
-                                    // Show brackets with smooth transition
                                     setTimeout(() => {
-                                        bracket.style.opacity = '1';
-                                        bracket.style.transform = 'scale(1)';
-                                        
                                         bracketRight.style.opacity = '1';
                                         bracketRight.style.transform = 'scaleX(1)';
                                         
-                                        bracketBottom.style.opacity = '1';
-                                        bracketBottom.style.transform = 'scaleY(1)';
-                                        
-                                        // Text appears
                                         setTimeout(() => {
-                                            theText.style.opacity = '1';
-                                            theText.style.transform = 'translateX(0)';
+                                            bracketTop.style.opacity = '1';
+                                            bracketTop.style.transform = 'scaleY(1)';
                                             
-                                            ladeText.style.opacity = '1';
-                                            ladeText.style.transform = 'translateX(0)';
-                                            
-                                            // Final glow effect
-                                            glow.style.opacity = '0.3';
-                                            glow.style.transform = 'scale(1.2)';
-                                        }, 400);
-                                    }, 150);
-                                }, 300);
+                                            setTimeout(() => {
+                                                bracketBottom.style.opacity = '1';
+                                                bracketBottom.style.transform = 'scaleY(1)';
+                                                
+                                                // Text appears
+                                                setTimeout(() => {
+                                                    theText.style.opacity = '1';
+                                                    theText.style.transform = 'translateX(0)';
+                                                    
+                                                    ladeText.style.opacity = '1';
+                                                    ladeText.style.transform = 'translateX(0)';
+                                                    
+                                                    // Final glow effect
+                                                    glow.style.opacity = '0.3';
+                                                    glow.style.transform = 'scale(1.2)';
+                                                }, 300);
+                                            }, 100);
+                                        }, 100);
+                                    }, 100);
+                                }, 100);
                             }, 200);
-                        }, 600);
+                        }, 800);
                     }, 500);
                 }, 300);
             }
@@ -337,26 +305,26 @@
                 iStem.style.opacity = '0';
                 iStem.style.transform = 'scaleY(0)';
                 
-                bracket.style.opacity = '0';
-                bracket.style.transform = 'scale(0.9)';
+                bracketContainer.style.opacity = '0';
+                bracketContainer.style.transform = 'scale(0.9)';
+                
+                bracketLeft.style.opacity = '0';
+                bracketLeft.style.transform = 'scaleX(0)';
                 
                 bracketRight.style.opacity = '0';
                 bracketRight.style.transform = 'scaleX(0)';
                 
+                bracketTop.style.opacity = '0';
+                bracketTop.style.transform = 'scaleY(0)';
+                
                 bracketBottom.style.opacity = '0';
                 bracketBottom.style.transform = 'scaleY(0)';
                 
-                crack1.style.opacity = '0';
-                crack1.style.transform = 'scaleX(0)';
-                
-                crack2.style.opacity = '0';
-                crack2.style.transform = 'scaleX(0) rotate(15deg)';
-                
                 theText.style.opacity = '0';
-                theText.style.transform = 'translateX(-20px)';
+                theText.style.transform = 'translateX(-30px)';
                 
                 ladeText.style.opacity = '0';
-                ladeText.style.transform = 'translateX(20px)';
+                ladeText.style.transform = 'translateX(30px)';
                 
                 glow.style.opacity = '0';
                 glow.style.transform = 'scale(1)';
