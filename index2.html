@@ -35,32 +35,33 @@
         }
         
         .the-text {
-            margin-right: 20px;
-            transform: translateX(-40px);
+            margin-right: 15px;
+            transform: translateX(-30px);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .lade-text {
-            margin-left: 20px;
-            transform: translateX(40px);
+            margin-left: 15px;
+            transform: translateX(30px);
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .symbol-container {
             position: relative;
-            width: 240px;
-            height: 180px;
+            width: 200px;
+            height: 160px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
         }
         
         .rectangle {
             position: absolute;
             width: 140px;
-            height: 160px;
+            height: 140px;
+            left: 30px;
             border: 2px solid rgba(255, 255, 255, 0.9);
-            border-radius: 6px;
+            border-radius: 4px;
             opacity: 0;
             transform: scale(0.8);
             transition: all 0.6s ease-out;
@@ -69,18 +70,19 @@
         
         .i-container {
             position: absolute;
+            left: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 160px;
+            width: 40px;
+            height: 140px;
             z-index: 2;
         }
         
         .i-dot {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             background: #64a0ff;
             border-radius: 50%;
             opacity: 0;
@@ -90,10 +92,10 @@
         }
         
         .i-stem {
-            width: 10px;
-            height: 80px;
+            width: 8px;
+            height: 70px;
             background: #64a0ff;
-            margin-top: 12px;
+            margin-top: 10px;
             opacity: 0;
             transform: scaleY(0);
             transform-origin: bottom;
@@ -103,80 +105,67 @@
         
         .bracket {
             position: absolute;
-            font-size: 120px;
+            font-size: 80px;
             color: #64a0ff;
             opacity: 0;
-            transform: scale(0.3);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            text-shadow: 0 0 25px rgba(100, 160, 255, 0.8);
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 0 20px rgba(100, 160, 255, 0.7);
             line-height: 1;
             top: 50%;
-            margin-top: -60px;
+            margin-top: -40px;
             z-index: 1;
-            font-weight: bold;
         }
         
         .left-bracket {
-            left: 30px;
-            transform: scale(0.3) translateX(-60px);
+            left: 10px;
+            transform: scale(0.5) translateX(-30px);
         }
         
         .right-bracket {
-            right: 30px;
-            transform: scale(0.3) translateX(60px);
+            right: 10px;
+            transform: scale(0.5) translateX(30px);
         }
         
         .glow {
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(100, 160, 255, 0.4) 0%, transparent 70%);
-            filter: blur(20px);
+            background: radial-gradient(circle, rgba(100, 160, 255, 0.3) 0%, transparent 70%);
+            filter: blur(15px);
             opacity: 0;
             z-index: -1;
             transition: all 0.8s ease;
-        }
-        
-        .rectangle-break {
-            position: absolute;
-            width: 140px;
-            height: 160px;
-            background: linear-gradient(45deg, transparent 48%, #ff4d4d 50%, transparent 52%);
-            opacity: 0;
-            transform: scale(1);
-            transition: all 0.3s ease-out;
-            mix-blend-mode: screen;
+            left: 20px;
         }
         
         .restart-btn {
             position: absolute;
             bottom: 30px;
-            padding: 12px 24px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             border-radius: 30px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(5px);
         }
         
         .restart-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
         }
         
         .instruction {
             position: absolute;
             top: 30px;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
             text-align: center;
             width: 100%;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -188,14 +177,13 @@
         
         <div class="symbol-container">
             <div class="rectangle"></div>
-            <div class="rectangle-break"></div>
             
             <div class="i-container">
                 <div class="i-dot"></div>
                 <div class="i-stem"></div>
             </div>
             
-            <!-- Properly sized bracket characters with correct spacing -->
+            <!-- Brackets positioned on the sides with proper spacing -->
             <div class="bracket left-bracket">「</div>
             <div class="bracket right-bracket">」</div>
             
@@ -210,7 +198,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const rectangle = document.querySelector('.rectangle');
-            const rectangleBreak = document.querySelector('.rectangle-break');
             const iDot = document.querySelector('.i-dot');
             const iStem = document.querySelector('.i-stem');
             const leftBracket = document.querySelector('.left-bracket');
@@ -239,54 +226,45 @@
                         iStem.style.transform = 'scaleY(1)';
                         
                         // Add glow effect
-                        glow.style.opacity = '0.7';
+                        glow.style.opacity = '0.6';
                         
                         // Rectangle transforms into brackets
                         setTimeout(() => {
-                            // Show breaking effect
-                            rectangleBreak.style.opacity = '0.6';
-                            
                             // Hide rectangle with breaking effect
+                            rectangle.style.opacity = '0';
+                            rectangle.style.transform = 'scale(1.1)';
+                            
+                            // Show brackets with proper timing and spacing
                             setTimeout(() => {
-                                rectangle.style.opacity = '0';
-                                rectangle.style.transform = 'scale(1.2)';
-                                rectangleBreak.style.opacity = '0';
+                                leftBracket.style.opacity = '1';
+                                leftBracket.style.transform = 'scale(1) translateX(0)';
                                 
-                                // Show brackets emerging from rectangle position
                                 setTimeout(() => {
-                                    leftBracket.style.opacity = '1';
-                                    leftBracket.style.transform = 'scale(1) translateX(0)';
+                                    rightBracket.style.opacity = '1';
+                                    rightBracket.style.transform = 'scale(1) translateX(0)';
                                     
+                                    // Text appears
                                     setTimeout(() => {
-                                        rightBracket.style.opacity = '1';
-                                        rightBracket.style.transform = 'scale(1) translateX(0)';
+                                        theText.style.opacity = '1';
+                                        theText.style.transform = 'translateX(0)';
                                         
-                                        // Text appears
-                                        setTimeout(() => {
-                                            theText.style.opacity = '1';
-                                            theText.style.transform = 'translateX(0)';
-                                            
-                                            ladeText.style.opacity = '1';
-                                            ladeText.style.transform = 'translateX(0)';
-                                            
-                                            // Final glow effect
-                                            glow.style.opacity = '0.4';
-                                            glow.style.transform = 'scale(1.3)';
-                                        }, 500);
-                                    }, 300);
+                                        ladeText.style.opacity = '1';
+                                        ladeText.style.transform = 'translateX(0)';
+                                        
+                                        // Final glow effect
+                                        glow.style.opacity = '0.3';
+                                        glow.style.transform = 'scale(1.2)';
+                                    }, 400);
                                 }, 200);
-                            }, 300);
+                            }, 200);
                         }, 800);
-                    }, 600);
-                }, 400);
+                    }, 500);
+                }, 300);
             }
             
             function resetAnimation() {
                 rectangle.style.opacity = '0';
                 rectangle.style.transform = 'scale(0.8)';
-                
-                rectangleBreak.style.opacity = '0';
-                rectangleBreak.style.transform = 'scale(1)';
                 
                 iDot.style.opacity = '0';
                 iDot.style.transform = 'scale(0)';
@@ -295,16 +273,16 @@
                 iStem.style.transform = 'scaleY(0)';
                 
                 leftBracket.style.opacity = '0';
-                leftBracket.style.transform = 'scale(0.3) translateX(-60px)';
+                leftBracket.style.transform = 'scale(0.5) translateX(-30px)';
                 
                 rightBracket.style.opacity = '0';
-                rightBracket.style.transform = 'scale(0.3) translateX(60px)';
+                rightBracket.style.transform = 'scale(0.5) translateX(30px)';
                 
                 theText.style.opacity = '0';
-                theText.style.transform = 'translateX(-40px)';
+                theText.style.transform = 'translateX(-30px)';
                 
                 ladeText.style.opacity = '0';
-                ladeText.style.transform = 'translateX(40px)';
+                ladeText.style.transform = 'translateX(30px)';
                 
                 glow.style.opacity = '0';
                 glow.style.transform = 'scale(1)';
