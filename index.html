@@ -38,11 +38,11 @@
         }
         
         .the-text {
-            margin-right: 10px;
+            margin-right: 15px;
         }
         
         .lade-text {
-            margin-left: 10px;
+            margin-left: 15px;
         }
         
         .symbol-container {
@@ -76,6 +76,7 @@
             opacity: 0;
             transform: scale(0);
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.7);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .i-stem {
@@ -88,6 +89,7 @@
             transform: scaleY(0);
             transform-origin: bottom;
             box-shadow: 0 0 10px rgba(100, 160, 255, 0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .bracket-left, .bracket-right {
@@ -100,6 +102,7 @@
             transform: scaleX(0);
             transform-origin: left;
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .bracket-right {
@@ -119,6 +122,7 @@
             transform: scaleY(0);
             transform-origin: top;
             box-shadow: 0 0 15px rgba(100, 160, 255, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .bracket-bottom {
@@ -136,6 +140,7 @@
             transform: scaleX(0);
             transform-origin: center;
             box-shadow: 0 0 10px rgba(255, 77, 77, 0.7);
+            transition: all 0.3s ease-out;
         }
         
         .crack-1 {
@@ -148,7 +153,7 @@
             width: 40px;
             top: 90px;
             left: 30px;
-            transform: rotate(15deg);
+            transform: rotate(15deg) scaleX(0);
         }
         
         .glow {
@@ -160,6 +165,7 @@
             filter: blur(15px);
             opacity: 0;
             z-index: -1;
+            transition: all 0.8s ease;
         }
         
         .restart-btn {
@@ -180,9 +186,20 @@
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
+        
+        .instruction {
+            position: absolute;
+            top: 30px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <div class="instruction">Watch the elegant logo animation unfold</div>
+    
     <div class="logo-container">
         <div class="text-part the-text">The</div>
         
